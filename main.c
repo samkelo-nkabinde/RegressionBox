@@ -32,12 +32,55 @@ int main()
 	/* logistic regression weights [bias, weight of x, weight of y] */
 	float weights[3] = {0};
 
-	float leaningRate = 0.1f;
+	float learningRate = 0.1f;
+	int epchos = 50;
 
 	while(!WindowShouldClose())
 	{
-		BeginDrawing();
-		ClearBackground(WHITE);
+		/* Handling input */
+		Vector2 mousePosition = GetMousePosition();
+		
+		if( mousePosition.y < 550 && dataCount < MAX_POINTS)
+		{
+			if( IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+			{
+				data[dataCount].position = mousePosition;
+				data[dataCount].class = 0;
+				dataCount++;
+			}
+			else if( IsMouseButtonPressed(MOUSE_BUTTON_RIGHT) && mode == 1)
+			{
+				data[dataCount].position = mousePosition;
+				data[dataCount].class = 1;
+				dataCount++;
+			}
+		}
+
+	        BeginDrawing();
+		ClearBackground(RAYWHITE);
+		
+		if(mode)
+		{
+			trainLogisticModel( data, dataCount,
+					    weights, learningRate,
+					    epchos, SCREEN_WIDTH );
+
+			drawPoint( data, dataCount );
+			drawHeatMap( weights, SCREEN_WIDTH, 20 );
+
+		}
+		else
+		{
+			drawLinearPoints( data, dataCount);
+
+			if( dataCount > 1)
+			{
+				fitData( data, dataCount, regressionLine );
+				drawLineOfBestFit( regressionLine, SCREEN_WIDTH);
+				if(showResiduals) drawResiduals( data, dataCount, regressionLine );			
+				DrawRectangle(0, 550, SCREEN_WIDTH, SCREEN_HEIGHT, WHITE);		
+			}
+		}
 
 		/* UI controls */
 		DrawRectangle(0 , 0, SCREEN_WIDTH, 550, Fade(LIGHTGRAY, 0.2f));
@@ -55,17 +98,17 @@ int main()
 		{
 			mode = 1;
 			dataCount = 0;
-			memset(weights, sizeof(float), 3);
+			memset(weights, 3, sizeof(float));
 		}
 		
 		if( GuiButton( (Rectangle){ 220, 640, 160, 30}, "Reset" ) )
 		{
 			dataCount = 0;
-			memset(weights, sizeof(float), 3);
+			memset(weights, 3, sizeof(float));
 		}
 		
 		GuiCheckBox( (Rectangle){ 40, 640, 20, 20 }, "Show Residuals", &showResiduals);
-		EndDrawing();	
+	        EndDrawing();	
 	}
 	CloseWindow();
 	return 0;

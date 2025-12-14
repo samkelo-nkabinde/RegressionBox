@@ -12,7 +12,8 @@
  * Finds the weights such that z < 0 for Class A (Red), z > 0 for Class B (Green)
  * where z is calculated with the formula z = bias + weight of x + weight of y
  */
-void trainModel( DataPoint* data, int dataCount, float* weights, float learningRate, int epchons, int screenWidth );
+void 
+trainLogisticModel( DataPoint* data, int dataCount, float* weights, float learningRate, int epchons, int screenWidth );
 
 /*
  * Activation function for the model

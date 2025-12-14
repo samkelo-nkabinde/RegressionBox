@@ -1,6 +1,6 @@
 #include "logistic_regression.h"
 
-void trainModel( DataPoint* data, int dataCount, float* weights, float learningRate, int epchons, int screenWidth )
+void trainLogisticModel( DataPoint* data, int dataCount, float* weights, float learningRate, int epchons, int screenWidth )
 {
 	for(int i = 0; i < epchons; ++i)
 	{

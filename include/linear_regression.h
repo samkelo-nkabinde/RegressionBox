@@ -17,6 +17,11 @@ void fitData( DataPoint* data, int dataCount, float* regressionLine );
 void drawLineOfBestFit( float* regressionLine, int screen_width );
 
 /*
+ * Draws a Red circle, to represent a data point
+ */
+void drawLinearPoints(DataPoint* data, int dataCount);
+
+/*
  * Finds the predicted y, then calcuted the error distance from the actual y
  * Draws the error distance from the actual point to the predicted y, the y point of the line of best fit
  */

@@ -25,10 +25,18 @@ void fitData( DataPoint* data, int dataCount, float* regressionLine )
 void drawLineOfBestFit(float* regressionLine, int screenWidth )
 {
 	DrawLineEx( (Vector2){ 0, regressionLine[0] }, 
-		    (Vector2){ screenWidth, regressionLine[0]*screenWidth + regressionLine[0]}, 
+		    (Vector2){ screenWidth, regressionLine[1]*screenWidth + regressionLine[0]}, 
 		    3.0f, BLUE);
 
 	return;
+}
+
+void drawLinearPoints(DataPoint* data, int dataCount)
+{
+	for (int i = 0; i < dataCount; i++) 
+	{
+		DrawCircleV(data[i].position, 5, RED);
+        }
 }
 
 void drawResiduals( DataPoint* data, int dataCount, float* regressionLine )
