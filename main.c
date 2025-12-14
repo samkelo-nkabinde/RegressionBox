@@ -22,7 +22,7 @@ int main()
 	DataPoint data[MAX_POINTS];
 	int dataCount = 0;
 	
-	/* 0 for linear regression, 1 for logistic regression */
+	/* current UI state/mode, 0 for linear regression, 1 for logistic regression */
 	int mode = 0;
 	bool showResiduals = true;
 
@@ -37,7 +37,7 @@ int main()
 
 	while(!WindowShouldClose())
 	{
-		/* Handling input */
+		/* handling input */
 		Vector2 mousePosition = GetMousePosition();
 		
 		if( mousePosition.y < 550 && dataCount < MAX_POINTS)
@@ -67,7 +67,7 @@ int main()
 
 			drawPoint( data, dataCount );
 			drawHeatMap( weights, SCREEN_WIDTH, 20 );
-
+			DrawRectangle(0, 550, SCREEN_WIDTH, SCREEN_HEIGHT, WHITE);
 		}
 		else
 		{
@@ -85,7 +85,7 @@ int main()
 		/* UI controls */
 		DrawRectangle(0 , 0, SCREEN_WIDTH, 550, Fade(LIGHTGRAY, 0.2f));
 		DrawLine(0, 550, SCREEN_WIDTH, 550, GRAY);
-		//DrawRectangle(0, 550, SCREEN_WIDTH, SCREEN_HEIGHT, WHITE);
+
 		GuiGroupBox( (Rectangle){ 20, 570, 400, 110 }, "Controls" );
 
 		if( GuiButton( (Rectangle){ 40, 590, 160, 30 }, "Linear Mode" ) )
@@ -98,13 +98,13 @@ int main()
 		{
 			mode = 1;
 			dataCount = 0;
-			memset(weights, 3, sizeof(float));
+			memset(weights, 0, 3*sizeof(float));
 		}
 		
 		if( GuiButton( (Rectangle){ 220, 640, 160, 30}, "Reset" ) )
 		{
 			dataCount = 0;
-			memset(weights, 3, sizeof(float));
+			memset(weights, 0, 3*sizeof(float));
 		}
 		
 		GuiCheckBox( (Rectangle){ 40, 640, 20, 20 }, "Show Residuals", &showResiduals);

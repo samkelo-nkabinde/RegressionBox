@@ -15,12 +15,12 @@ void trainLogisticModel( DataPoint* data, int dataCount, float* weights, float l
 			float prediction = sigmoid(z);
 
 			/* Error */
-			float error = prediction - (float)data[i].class;
+			float error = prediction - (float)data[j].class;
 
 			/* Update weights */
 			weights[0] -= error * learningRate * 1.0f;
 			weights[1] -= error * learningRate * normalized_X;
-			weights[3] -= error * learningRate * normalized_Y;
+			weights[2] -= error * learningRate * normalized_Y;
 
 		}
 	}
@@ -35,13 +35,13 @@ float sigmoid( float z )
 
 void drawHeatMap( float* weights, int screenWidth, int pixelCount )
 {
-	for(int y = 0; y < 550.0f; ++y)
+	for(int y = 0; y < 550; y += pixelCount)
 	{
-		for(int x = 0; x < screenWidth; ++x)
+		for(int x = 0; x < screenWidth; x += pixelCount)
 		{
 			/* normalize x and y to span a given pixel area */
-			float normalized_X = x / screenWidth;
-			float normalized_Y = y / 550.0f;
+			float normalized_X = (float)x / screenWidth;
+			float normalized_Y = (float)y / 550.0f;
 			
 			float probability = sigmoid(weights[0] + normalized_X*weights[1] + normalized_Y*weights[2]);
 			
@@ -52,10 +52,10 @@ void drawHeatMap( float* weights, int screenWidth, int pixelCount )
 			}
 			else
 			{
-				pixelColour = Fade(RED, (1 - probability)*0.3f);
+				pixelColour = Fade(RED, (1.0f - probability)*0.3f);
 			}
 			
-			DrawRectangle(x, y, 20, 20, pixelColour);
+			DrawRectangle(x, y, pixelCount, pixelCount, pixelColour);
 
 		}
 	}
@@ -65,7 +65,7 @@ void drawHeatMap( float* weights, int screenWidth, int pixelCount )
 
 void drawPoint( DataPoint* data, int dataCount )
 {
-        for (int i = 0; i < dataCount; i++) 
+        for (int i = 0; i < dataCount; ++i) 
 	{
                 DrawCircleV(data[i].position, 6, (data[i].class == 0) ? MAROON : DARKGREEN);
                 DrawCircleLines(data[i].position.x, data[i].position.y, 7, WHITE);
