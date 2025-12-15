@@ -4,27 +4,23 @@
 #include <string.h>
 
 #include "raylib.h"
-#define RAYGUI_IMPLEMENTATION
-#include "raygui.h"
 
 #include "linear_regression.h"
 #include "logistic_regression.h"
+#include "ui.h"
 
-#define SCREEN_WIDTH 1000
-#define SCREEN_HEIGHT 700
 #define FRAME_RATE 60
 
 int main()
 {
 	InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Stats SandBox: Regression" );
 	SetTargetFPS(FRAME_RATE);
-
+	printf("%d\n", MAX_POINTS);
 	DataPoint data[MAX_POINTS];
 	int dataCount = 0;
 	
 	/* current UI state/mode, 0 for linear regression, 1 for logistic regression */
 	int mode = 0;
-	bool showResiduals = true;
 
 	/* linear regression equation, [intercept , slope ]  */
 	float regressionLine[2] = {0};
@@ -83,31 +79,30 @@ int main()
 		}
 
 		/* UI controls */
-		DrawRectangle( 0 , 0, SCREEN_WIDTH, 550, Fade(LIGHTGRAY, 0.2f) );
-		DrawLine( 0, 550, SCREEN_WIDTH, 550, GRAY );
-
-		GuiGroupBox( (Rectangle){ 20, 570, 400, 110 }, "Controls" );
-
-		if( GuiButton( (Rectangle){ 40, 590, 160, 30 }, "Linear Mode" ) )
+		switch(drawControls())
 		{
-			mode = 0;
-			dataCount = 0;
+			case LINEAR_MODE_BUTTON:
+			{
+				mode = 0;
+				dataCount = 0;
+				break;
+			}
+			case LOGISTIC_MODE_BUTTON:
+			{
+				mode = 1;
+				dataCount = 0;
+				memset(weights, 0, 3*sizeof(float));
+				break;
+			}
+			case RESET_BUTTON:
+			{
+				dataCount = 0;
+				memset(weights, 0, 3*sizeof(float));
+				break;
+			}
+			default:
+				break;
 		}
-
-		if( GuiButton( (Rectangle){ 220, 590, 160, 30}, "Logistic Mode") )
-		{
-			mode = 1;
-			dataCount = 0;
-			memset(weights, 0, 3*sizeof(float));
-		}
-		
-		if( GuiButton( (Rectangle){ 220, 640, 160, 30}, "Reset" ) )
-		{
-			dataCount = 0;
-			memset(weights, 0, 3*sizeof(float));
-		}
-		
-		GuiCheckBox( (Rectangle){ 40, 640, 20, 20 }, "Show Residuals", &showResiduals );
 	        EndDrawing();	
 	}
 	CloseWindow();
