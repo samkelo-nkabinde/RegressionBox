@@ -13,7 +13,7 @@
  * where z is calculated with the formula z = bias + weight of x + weight of y
  */
 void 
-trainLogisticModel( DataPoint* data, int dataCount, float* weights, float learningRate, int epchons, int screenWidth );
+trainLogisticModel( DataPoint* data, int dataCount, float* weights, float learningRate, int epchons );
 
 /*
  * Activation function for the model
@@ -24,7 +24,7 @@ float sigmoid( float z );
  * Draw the decision boundary 
  * Samples the screen for specific number of pixels to draw the probability field
  */
-void drawHeatMap( float* weights, int screenWidth, int pixelCount );
+void drawHeatMap( float* weights, int pixelCount );
 
 /*
  * Draw point, Red dot for class A and Green dot for class B

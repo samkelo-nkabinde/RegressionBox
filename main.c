@@ -13,9 +13,15 @@
 
 int main()
 {
-	InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Stats SandBox: Regression" );
+	SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+	InitWindow(screenWidth, screenHeight, "Stats SandBox: Regression" );
 	SetTargetFPS(FRAME_RATE);
-	printf("%d\n", MAX_POINTS);
+	
+	SetWindowMinSize(320, 224);
+
+	screenWidth = GetScreenWidth();
+	screenHeight = GetScreenHeight();
+
 	DataPoint data[MAX_POINTS];
 	int dataCount = 0;
 	
@@ -59,11 +65,11 @@ int main()
 		{
 			trainLogisticModel( data, dataCount,
 					    weights, learningRate,
-					    epchos, SCREEN_WIDTH );
+					    epchos);
 
 			drawPoint( data, dataCount );
-			drawHeatMap( weights, SCREEN_WIDTH, 20 );
-			DrawRectangle( 0, 550, SCREEN_WIDTH, SCREEN_HEIGHT, WHITE );
+			drawHeatMap( weights, 20 );
+			DrawRectangle( 0, graphingAreaHeight, screenWidth, screenHeight, WHITE );
 		}
 		else
 		{
@@ -72,9 +78,9 @@ int main()
 			if( dataCount > 1)
 			{
 				fitData( data, dataCount, regressionLine );
-				drawLineOfBestFit( regressionLine, SCREEN_WIDTH);
+				drawLineOfBestFit( regressionLine);
 				if(showResiduals) drawResiduals( data, dataCount, regressionLine );			
-				DrawRectangle( 0, 550, SCREEN_WIDTH, SCREEN_HEIGHT, WHITE );		
+				DrawRectangle( 0, graphingAreaHeight, screenWidth, screenHeight, WHITE );		
 			}
 		}
 

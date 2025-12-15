@@ -5,9 +5,9 @@
 
 #include "raygui.h"
 
-#define SCREEN_WIDTH 1000 
-#define SCREEN_HEIGHT 700
-#define GRAPHING_HEIGHT
+extern int screenWidth;
+extern int screenHeight;
+extern int graphingAreaHeight;
 
 typedef enum{
 

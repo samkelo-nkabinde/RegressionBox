@@ -1,14 +1,15 @@
 #include "logistic_regression.h"
+#include "ui.h"
 
-void trainLogisticModel( DataPoint* data, int dataCount, float* weights, float learningRate, int epchons, int screenWidth )
+void trainLogisticModel( DataPoint* data, int dataCount, float* weights, float learningRate, int epchons )
 {
 	for(int i = 0; i < epchons; ++i)
 	{
 		for(int j = 0; j < dataCount; ++j)
 		{
 			/* Normilize the data input to range of 0.0 to 1.0 */ 
-			float normalized_X = data[j].position.x / screenWidth;
-			float normalized_Y = data[j].position.y / 550.0f;
+			float normalized_X = data[j].position.x / (float)screenWidth;
+			float normalized_Y = data[j].position.y / (float)graphingAreaHeight;
 			
 			/* Prediction */
 			float z = weights[0] + weights[1]*normalized_X + weights[2]*normalized_Y;
@@ -33,7 +34,7 @@ float sigmoid( float z )
 	return 1.0f / (1.0f + expf(-z));
 }
 
-void drawHeatMap( float* weights, int screenWidth, int pixelCount )
+void drawHeatMap( float* weights, int pixelCount )
 {
 	for(int y = 0; y < 550; y += pixelCount)
 	{
@@ -41,7 +42,7 @@ void drawHeatMap( float* weights, int screenWidth, int pixelCount )
 		{
 			/* normalize x and y to span a given pixel area */
 			float normalized_X = (float)x / screenWidth;
-			float normalized_Y = (float)y / 550.0f;
+			float normalized_Y = (float)y / graphingAreaHeight;
 			
 			float probability = sigmoid(weights[0] + normalized_X*weights[1] + normalized_Y*weights[2]);
 			

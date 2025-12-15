@@ -1,13 +1,17 @@
 #define RAYGUI_IMPLEMENTATION
 #include "ui.h"
 
+int screenWidth = 1000;
+int screenHeight = 700;
+int graphingAreaHeight = 550;
+
 bool showResiduals = true;
 
 ButtonOption drawControls()
 {
 		
-	DrawRectangle( 0 , 0, SCREEN_WIDTH, 550, Fade(LIGHTGRAY, 0.2f) );
-	DrawLine( 0, 550, SCREEN_WIDTH, 550, GRAY );
+	DrawRectangle( 0 , 0, screenWidth, graphingAreaHeight, Fade(LIGHTGRAY, 0.2f) );
+	DrawLine( 0, graphingAreaHeight, screenWidth, 550, GRAY );
 	
 	GuiGroupBox( (Rectangle){ 20, 570, 400, 110 }, "Controls" );
 

@@ -1,4 +1,5 @@
 #include "linear_regression.h"
+#include "ui.h"
 
 void fitData( DataPoint* data, int dataCount, float* regressionLine )
 {
@@ -22,7 +23,7 @@ void fitData( DataPoint* data, int dataCount, float* regressionLine )
 	return;
 }
 
-void drawLineOfBestFit(float* regressionLine, int screenWidth )
+void drawLineOfBestFit(float* regressionLine )
 {
 	DrawLineEx( (Vector2){ 0, regressionLine[0] }, 
 		    (Vector2){ screenWidth, regressionLine[1]*screenWidth + regressionLine[0]}, 

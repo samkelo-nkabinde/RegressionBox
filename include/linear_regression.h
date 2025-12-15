@@ -14,7 +14,7 @@ void fitData( DataPoint* data, int dataCount, float* regressionLine );
 /*
  * Draws the line of best fit using the calculated regression line
  */
-void drawLineOfBestFit( float* regressionLine, int screen_width );
+void drawLineOfBestFit( float* regressionLine );
 
 /*
  * Draws a Red circle, to represent a data point
