@@ -35,20 +35,20 @@ int main()
 	float learningRate = 0.1f;
 	int epchos = 50;
 
-	while(!WindowShouldClose())
+	while( !WindowShouldClose() )
 	{
 		/* handling input */
 		Vector2 mousePosition = GetMousePosition();
 		
-		if( mousePosition.y < 550 && dataCount < MAX_POINTS)
+		if( mousePosition.y < 550 && dataCount < MAX_POINTS )
 		{
-			if( IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+			if( IsMouseButtonPressed(MOUSE_BUTTON_LEFT) )
 			{
 				data[dataCount].position = mousePosition;
 				data[dataCount].class = 0;
 				dataCount++;
 			}
-			else if( IsMouseButtonPressed(MOUSE_BUTTON_RIGHT) && mode == 1)
+			else if( IsMouseButtonPressed(MOUSE_BUTTON_RIGHT) && mode == 1 )
 			{
 				data[dataCount].position = mousePosition;
 				data[dataCount].class = 1;
@@ -67,24 +67,24 @@ int main()
 
 			drawPoint( data, dataCount );
 			drawHeatMap( weights, SCREEN_WIDTH, 20 );
-			DrawRectangle(0, 550, SCREEN_WIDTH, SCREEN_HEIGHT, WHITE);
+			DrawRectangle( 0, 550, SCREEN_WIDTH, SCREEN_HEIGHT, WHITE );
 		}
 		else
 		{
-			drawLinearPoints( data, dataCount);
+			drawLinearPoints( data, dataCount );
 
 			if( dataCount > 1)
 			{
 				fitData( data, dataCount, regressionLine );
 				drawLineOfBestFit( regressionLine, SCREEN_WIDTH);
 				if(showResiduals) drawResiduals( data, dataCount, regressionLine );			
-				DrawRectangle(0, 550, SCREEN_WIDTH, SCREEN_HEIGHT, WHITE);		
+				DrawRectangle( 0, 550, SCREEN_WIDTH, SCREEN_HEIGHT, WHITE );		
 			}
 		}
 
 		/* UI controls */
-		DrawRectangle(0 , 0, SCREEN_WIDTH, 550, Fade(LIGHTGRAY, 0.2f));
-		DrawLine(0, 550, SCREEN_WIDTH, 550, GRAY);
+		DrawRectangle( 0 , 0, SCREEN_WIDTH, 550, Fade(LIGHTGRAY, 0.2f) );
+		DrawLine( 0, 550, SCREEN_WIDTH, 550, GRAY );
 
 		GuiGroupBox( (Rectangle){ 20, 570, 400, 110 }, "Controls" );
 
@@ -107,7 +107,7 @@ int main()
 			memset(weights, 0, 3*sizeof(float));
 		}
 		
-		GuiCheckBox( (Rectangle){ 40, 640, 20, 20 }, "Show Residuals", &showResiduals);
+		GuiCheckBox( (Rectangle){ 40, 640, 20, 20 }, "Show Residuals", &showResiduals );
 	        EndDrawing();	
 	}
 	CloseWindow();
