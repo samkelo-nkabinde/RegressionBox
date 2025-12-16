@@ -34,3 +34,12 @@ ButtonOption drawControls()
 
 	return -1;
 }
+
+int clampScreenWidth(int screenWidth)
+{
+	return (screenWidth + (screenWidth % 10));
+}
+int clampScreenHeight(int screenHeight)
+{
+	return (screenHeight + (screenHeight % 7));
+}

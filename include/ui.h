@@ -20,5 +20,6 @@ typedef enum{
 extern bool showResiduals;
 
 ButtonOption drawControls();
-
+int clampScreenWidth( int sceenWidth );
+int clampScreenHeight( int screenHeight );
 #endif

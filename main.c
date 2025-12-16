@@ -17,10 +17,8 @@ int main()
 	InitWindow(screenWidth, screenHeight, "Stats SandBox: Regression" );
 	SetTargetFPS(FRAME_RATE);
 	
-	SetWindowMinSize(320, 224);
+	SetWindowMinSize(320, 224);	
 
-	screenWidth = GetScreenWidth();
-	screenHeight = GetScreenHeight();
 
 	DataPoint data[MAX_POINTS];
 	int dataCount = 0;
@@ -39,10 +37,14 @@ int main()
 
 	while( !WindowShouldClose() )
 	{
+
+		screenWidth = clampScreenWidth( GetScreenWidth() );
+		screenHeight = clampScreenHeight( GetScreenHeight() );
+
 		/* handling input */
 		Vector2 mousePosition = GetMousePosition();
 		
-		if( mousePosition.y < 550 && dataCount < MAX_POINTS )
+		if( mousePosition.y < graphingAreaHeight && dataCount < MAX_POINTS )
 		{
 			if( IsMouseButtonPressed(MOUSE_BUTTON_LEFT) )
 			{
@@ -60,13 +62,10 @@ int main()
 
 	        BeginDrawing();
 		ClearBackground(RAYWHITE);
-		
+		printf("%d %d\n", screenWidth, screenHeight);	
 		if(mode)
 		{
-			trainLogisticModel( data, dataCount,
-					    weights, learningRate,
-					    epchos);
-
+			trainLogisticModel( data, dataCount, weights, learningRate, epchos);
 			drawPoint( data, dataCount );
 			drawHeatMap( weights, 20 );
 			DrawRectangle( 0, graphingAreaHeight, screenWidth, screenHeight, WHITE );
