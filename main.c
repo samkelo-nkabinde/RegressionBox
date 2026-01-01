@@ -57,12 +57,13 @@ int main()
 			currentResolution = (Vector2){screenWidth, screenHeight};
 			updateUIscale(baseResolution, currentResolution);
 			updateDataPoints(data, dataCount);
+			graphingAreaHeight = (int)(0.8 * screenHeight);
 		}
 		
 		/* handling input */
 		Vector2 mousePosition = GetMousePosition();
 		
-		if( mousePosition.y < graphingAreaHeight * uiScale && dataCount < MAX_POINTS )
+		if( mousePosition.y < graphingAreaHeight && dataCount < MAX_POINTS )
 		{
 			if( IsMouseButtonPressed(MOUSE_BUTTON_LEFT) )
 			{
@@ -86,7 +87,7 @@ int main()
 				trainLogisticModel( data, dataCount, weights, learningRate, epchos);
 				drawPoint( data, dataCount );
 				drawHeatMap( weights, 20 );
-				DrawRectangleRec( scaleRectangle( (Rectangle){0, graphingAreaHeight, screenWidth, screenHeight} ), WHITE );
+				DrawRectangle(0, graphingAreaHeight, screenWidth, screenHeight, WHITE );
 			}
 			else
 			{
@@ -97,7 +98,8 @@ int main()
 					fitData( data, dataCount, regressionLine );
 					drawLineOfBestFit( regressionLine);
 					if(showResiduals) drawResiduals( data, dataCount, regressionLine );			
-					DrawRectangleRec( scaleRectangle( (Rectangle){0, graphingAreaHeight, screenWidth, screenHeight} ), WHITE );		
+					DrawRectangle(0, graphingAreaHeight, screenWidth, screenHeight, WHITE );
+	
 				}
 			}
 
@@ -124,8 +126,7 @@ int main()
 					break;
 			}
 		}
-	        EndDrawing();	
-		printf("Width: %d\nHeight: %d\n", GetScreenWidth(), GetScreenHeight());
+	        EndDrawing();		
 	}
 	CloseWindow();
 	return 0;
