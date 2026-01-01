@@ -3,7 +3,7 @@
 
 #include "raylib.h"
 #include "data_point.h"
-
+#include "ui.h"
 
 /*
  * Finds the line of best fit using least of squres method 

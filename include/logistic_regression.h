@@ -5,6 +5,7 @@
 
 #include "raylib.h"
 #include "data_point.h"
+#include "ui.h"
 
 /*
  * Train a logistic model for a finite number of epchons,

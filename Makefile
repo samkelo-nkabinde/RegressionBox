@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -O1 -Wall -std=c99 -Wno-missing-braces -Iinclude/ -Iraylib/ 
+CFLAGS = -O1 -Wall -std=c11 -Wno-missing-braces -Iinclude/ -Iraylib/ 
 LDFLAGS = -Llib/
 LIBS = -lraylib -lopengl32 -lgdi32 -lwinmm -lm
 

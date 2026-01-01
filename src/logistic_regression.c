@@ -36,7 +36,7 @@ float sigmoid( float z )
 
 void drawHeatMap( float* weights, int pixelCount )
 {
-	for(int y = 0; y < 550; y += pixelCount)
+	for(int y = 0; y < (int)(550 * uiScale); y += pixelCount)
 	{
 		for(int x = 0; x < screenWidth; x += pixelCount)
 		{
@@ -56,7 +56,7 @@ void drawHeatMap( float* weights, int pixelCount )
 				pixelColour = Fade(RED, (1.0f - probability)*0.3f);
 			}
 			
-			DrawRectangle(x, y, pixelCount, pixelCount, pixelColour);
+			DrawRectangleRec(scaleRectangle( (Rectangle){ x, y, pixelCount, pixelCount } ), pixelColour);
 
 		}
 	}
@@ -68,8 +68,8 @@ void drawPoint( DataPoint* data, int dataCount )
 {
         for (int i = 0; i < dataCount; ++i) 
 	{
-                DrawCircleV(data[i].position, 6, (data[i].class == 0) ? MAROON : DARKGREEN);
-                DrawCircleLines(data[i].position.x, data[i].position.y, 7, WHITE);
+                DrawCircleV(data[i].position, 6 * uiScale, (data[i].class == 0) ? MAROON : DARKGREEN);
+                DrawCircleLines(data[i].position.x, data[i].position.y, 7 * uiScale, WHITE);
         }
 
 	return;

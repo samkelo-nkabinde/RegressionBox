@@ -10,14 +10,26 @@
 #include "ui.h"
 
 #define FRAME_RATE 60
-
+void updateDataPoints(DataPoint data[], int dataCount)
+{
+	for(int i = 0; i < dataCount; ++i)
+	{
+		data[i].position.x *= uiScale;
+		data[i].position.y *= uiScale;
+	}
+	return;
+}
 int main()
 {
 	SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-	InitWindow(screenWidth, screenHeight, "Stats SandBox: Regression" );
+	InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Stats SandBox: Regression" );
+
+	Vector2 baseResolution = {SCREEN_WIDTH, SCREEN_HEIGHT};
+	Vector2 currentResolution = {GetScreenWidth(), GetScreenHeight()};
+
 	SetTargetFPS(FRAME_RATE);
 	
-	SetWindowMinSize(320, 224);	
+	SetWindowMinSize(560, 380);	
 
 
 	DataPoint data[MAX_POINTS];
@@ -38,13 +50,19 @@ int main()
 	while( !WindowShouldClose() )
 	{
 
-		screenWidth = clampScreenWidth( GetScreenWidth() );
-		screenHeight = clampScreenHeight( GetScreenHeight() );
-
+		if(IsWindowResized())
+		{
+			screenWidth = GetScreenWidth();
+			screenHeight = GetScreenHeight();
+			currentResolution = (Vector2){screenWidth, screenHeight};
+			updateUIscale(baseResolution, currentResolution);
+			updateDataPoints(data, dataCount);
+		}
+		
 		/* handling input */
 		Vector2 mousePosition = GetMousePosition();
 		
-		if( mousePosition.y < graphingAreaHeight && dataCount < MAX_POINTS )
+		if( mousePosition.y < graphingAreaHeight * uiScale && dataCount < MAX_POINTS )
 		{
 			if( IsMouseButtonPressed(MOUSE_BUTTON_LEFT) )
 			{
@@ -61,54 +79,53 @@ int main()
 		}
 
 	        BeginDrawing();
-		ClearBackground(RAYWHITE);
-		printf("%d %d\n", screenWidth, screenHeight);	
-		if(mode)
 		{
-			trainLogisticModel( data, dataCount, weights, learningRate, epchos);
-			drawPoint( data, dataCount );
-			drawHeatMap( weights, 20 );
-			DrawRectangle( 0, graphingAreaHeight, screenWidth, screenHeight, WHITE );
-		}
-		else
-		{
-			drawLinearPoints( data, dataCount );
+			ClearBackground(RAYWHITE);	
+			if(mode)
+			{
+				trainLogisticModel( data, dataCount, weights, learningRate, epchos);
+				drawPoint( data, dataCount );
+				drawHeatMap( weights, 20 );
+				DrawRectangleRec( scaleRectangle( (Rectangle){0, graphingAreaHeight, screenWidth, screenHeight} ), WHITE );
+			}
+			else
+			{
+				drawLinearPoints( data, dataCount );
 
-			if( dataCount > 1)
-			{
-				fitData( data, dataCount, regressionLine );
-				drawLineOfBestFit( regressionLine);
-				if(showResiduals) drawResiduals( data, dataCount, regressionLine );			
-				DrawRectangle( 0, graphingAreaHeight, screenWidth, screenHeight, WHITE );		
+				if( dataCount > 1)
+				{
+					fitData( data, dataCount, regressionLine );
+					drawLineOfBestFit( regressionLine);
+					if(showResiduals) drawResiduals( data, dataCount, regressionLine );			
+					DrawRectangleRec( scaleRectangle( (Rectangle){0, graphingAreaHeight, screenWidth, screenHeight} ), WHITE );		
+				}
 			}
-		}
 
-		/* UI controls */
-		switch(drawControls())
-		{
-			case LINEAR_MODE_BUTTON:
+			/* UI controls */
+			switch(drawControls())
 			{
-				mode = 0;
-				dataCount = 0;
-				break;
+				case LINEAR_MODE:
+					mode = 0;
+					dataCount = 0;
+					break;
+
+				case LOGISTIC_MODE:
+					mode = 1;
+					dataCount = 0;
+					memset(weights, 0, 3*sizeof(float));
+					break;
+
+				case RESET:
+					dataCount = 0;
+					memset(weights, 0, 3*sizeof(float));
+					break;
+
+				default:
+					break;
 			}
-			case LOGISTIC_MODE_BUTTON:
-			{
-				mode = 1;
-				dataCount = 0;
-				memset(weights, 0, 3*sizeof(float));
-				break;
-			}
-			case RESET_BUTTON:
-			{
-				dataCount = 0;
-				memset(weights, 0, 3*sizeof(float));
-				break;
-			}
-			default:
-				break;
 		}
 	        EndDrawing();	
+		printf("Width: %d\nHeight: %d\n", GetScreenWidth(), GetScreenHeight());
 	}
 	CloseWindow();
 	return 0;

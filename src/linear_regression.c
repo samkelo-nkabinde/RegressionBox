@@ -27,7 +27,7 @@ void drawLineOfBestFit(float* regressionLine )
 {
 	DrawLineEx( (Vector2){ 0, regressionLine[0] }, 
 		    (Vector2){ screenWidth, regressionLine[1]*screenWidth + regressionLine[0]}, 
-		    3.0f, BLUE);
+		    3.0f * uiScale, BLUE);
 
 	return;
 }
@@ -36,7 +36,7 @@ void drawLinearPoints(DataPoint* data, int dataCount)
 {
 	for (int i = 0; i < dataCount; i++) 
 	{
-		DrawCircleV(data[i].position, 5, RED);
+		DrawCircleV(data[i].position, 5 * uiScale, RED);
         }
 }
 
