@@ -51,3 +51,9 @@ void drawResiduals( DataPoint* data, int dataCount, float* regressionLine )
 
 	return;
 }
+
+void displayRegressionLine( float* regressionLine )
+{
+	DrawText(TextFormat("Y = %.2f + %.2fx", regressionLine[1], regressionLine[0]), 
+			20 * uiScale, 20 * uiScale, 20 * uiScale, DARKGRAY);
+}

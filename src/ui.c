@@ -43,24 +43,24 @@ ButtonOptionE drawControls()
 		 graphingAreaHeight,
 		 GRAY );
 	
-	GuiGroupBox( scaleRectangleIgnoreY( (Rectangle){ 20, graphingAreaHeight + 20, 400, 110 } ), "Controls" );
+	GuiGroupBox( scaleRectangleIgnoreY( (Rectangle){ 20, graphingAreaHeight + 20 * uiScale, 400, 110 } ), "Controls" );
 
-	if( GuiButton( scaleRectangleIgnoreY( (Rectangle){ 40, graphingAreaHeight + 40, 160, 30 } ), "Linear Mode" ) )
+	if( GuiButton( scaleRectangleIgnoreY( (Rectangle){ 40, graphingAreaHeight + 40 * uiScale, 160, 30 } ), "Linear Mode" ) )
 	{
 		return LINEAR_MODE;
 	}
 
-	if( GuiButton( scaleRectangleIgnoreY( (Rectangle){ 220, graphingAreaHeight + 40, 160, 30 } ), "Logistic Mode") )
+	if( GuiButton( scaleRectangleIgnoreY( (Rectangle){ 220, graphingAreaHeight + 40 * uiScale, 160, 30 } ), "Logistic Mode") )
 	{
 		return LOGISTIC_MODE;
 	}
 		
-	if( GuiButton( scaleRectangleIgnoreY( (Rectangle){ 220, graphingAreaHeight + 80 , 160, 30 } ), "Reset" ) )
+	if( GuiButton( scaleRectangleIgnoreY( (Rectangle){ 220, graphingAreaHeight + 80 * uiScale , 160, 30 } ), "Reset" ) )
 	{
 		return RESET;
 	}
 		
-	GuiCheckBox( scaleRectangleIgnoreY( (Rectangle){ 40, graphingAreaHeight + 80 , 20, 20 } ), "Show Residuals", &showResiduals );
+	GuiCheckBox( scaleRectangleIgnoreY( (Rectangle){ 40, graphingAreaHeight + 80 * uiScale, 20, 20 } ), "Show Residuals", &showResiduals );
 
 	return -1;
 }

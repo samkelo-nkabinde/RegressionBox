@@ -32,4 +32,6 @@ void drawHeatMap( float* weights, int pixelCount );
  */
 void drawPoint( DataPoint* data, int dataCount );
 
+void displayWeights(float* weights);
+
 #endif

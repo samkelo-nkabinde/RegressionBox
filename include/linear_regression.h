@@ -27,4 +27,6 @@ void drawLinearPoints(DataPoint* data, int dataCount);
  */
 void drawResiduals( DataPoint* data, int dataCount, float* regressionLine );
 
+void displayRegressionLine(float* regressionLine);
+
 #endif

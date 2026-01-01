@@ -36,7 +36,7 @@ float sigmoid( float z )
 
 void drawHeatMap( float* weights, int pixelCount )
 {
-	for(int y = 0; y < (int)(550 * uiScale); y += pixelCount)
+	for(int y = 0; y < graphingAreaHeight; y += pixelCount)
 	{
 		for(int x = 0; x < screenWidth; x += pixelCount)
 		{
@@ -56,7 +56,7 @@ void drawHeatMap( float* weights, int pixelCount )
 				pixelColour = Fade(RED, (1.0f - probability)*0.3f);
 			}
 			
-			DrawRectangleRec(scaleRectangle( (Rectangle){ x, y, pixelCount, pixelCount } ), pixelColour);
+			DrawRectangle( x, y, pixelCount, pixelCount,  pixelColour);
 
 		}
 	}
@@ -73,4 +73,10 @@ void drawPoint( DataPoint* data, int dataCount )
         }
 
 	return;
+}
+
+void displayWeights(float* weights)
+{
+	DrawText(TextFormat("Weights: %.2f, %.2f, %.2f", weights[0], weights[1], weights[2]),
+		20 * uiScale, 20 * uiScale, 20 * uiScale, DARKGRAY);
 }

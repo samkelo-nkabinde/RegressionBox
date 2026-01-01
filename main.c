@@ -10,6 +10,7 @@
 #include "ui.h"
 
 #define FRAME_RATE 60
+
 void updateDataPoints(DataPoint data[], int dataCount)
 {
 	for(int i = 0; i < dataCount; ++i)
@@ -19,6 +20,7 @@ void updateDataPoints(DataPoint data[], int dataCount)
 	}
 	return;
 }
+
 int main()
 {
 	SetConfigFlags(FLAG_WINDOW_RESIZABLE);
@@ -86,7 +88,8 @@ int main()
 			{
 				trainLogisticModel( data, dataCount, weights, learningRate, epchos);
 				drawPoint( data, dataCount );
-				drawHeatMap( weights, 20 );
+				drawHeatMap( weights, 10 );
+				displayWeights(weights);
 				DrawRectangle(0, graphingAreaHeight, screenWidth, screenHeight, WHITE );
 			}
 			else
@@ -98,6 +101,7 @@ int main()
 					fitData( data, dataCount, regressionLine );
 					drawLineOfBestFit( regressionLine);
 					if(showResiduals) drawResiduals( data, dataCount, regressionLine );			
+					displayRegressionLine(regressionLine);
 					DrawRectangle(0, graphingAreaHeight, screenWidth, screenHeight, WHITE );
 	
 				}
