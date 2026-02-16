@@ -1,2 +1,1 @@
-# RegressionBox: Linear and Logistic Regression
-
+# Linear and Logistic RegressionBox
