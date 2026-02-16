@@ -1,2 +1,2 @@
-# Stats Sandbox: Linear and Logistic Regression
+# RegressionBox: Linear and Logistic Regression
 
