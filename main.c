@@ -24,7 +24,7 @@ void updateDataPoints(DataPoint data[], int dataCount)
 int main()
 {
 	SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-	InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Stats SandBox: Regression" );
+	InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Regression Box" );
 
 	Vector2 baseResolution = {SCREEN_WIDTH, SCREEN_HEIGHT};
 	Vector2 currentResolution = {GetScreenWidth(), GetScreenHeight()};
