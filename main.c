@@ -24,8 +24,8 @@ int main()
 	SetTargetFPS(FRAME_RATE);
 	
 	SetWindowMinSize(560, 380);	
-
-	SetWindowIcon("asserts/favicon.png"); 
+	Image icon = LoadImage("asserts/favicon.png");
+	SetWindowIcon(icon); 
 
 	DataPoint data[MAX_POINTS];
 	int dataCount = 0;
@@ -125,6 +125,7 @@ int main()
 		}
 	        EndDrawing();		
 	}
+	UnloadImage(icon);
 	CloseWindow();
 	return 0;
 }
