@@ -11,15 +11,7 @@
 
 #define FRAME_RATE 60
 
-void updateDataPoints(DataPoint data[], int dataCount)
-{
-	for(int i = 0; i < dataCount; ++i)
-	{
-		data[i].position.x *= uiScale;
-		data[i].position.y *= uiScale;
-	}
-	return;
-}
+void updateDataPoints(DataPoint data[], int dataCount);
 
 int main()
 {
@@ -33,6 +25,7 @@ int main()
 	
 	SetWindowMinSize(560, 380);	
 
+	SetWindowIcon("asserts/favicon.png"); 
 
 	DataPoint data[MAX_POINTS];
 	int dataCount = 0;
@@ -134,4 +127,14 @@ int main()
 	}
 	CloseWindow();
 	return 0;
+}
+
+void updateDataPoints(DataPoint data[], int dataCount)
+{
+	for(int i = 0; i < dataCount; ++i)
+	{
+		data[i].position.x *= uiScale;
+		data[i].position.y *= uiScale;
+	}
+	return;
 }
